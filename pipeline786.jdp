@@ -3,6 +3,7 @@ pipeline {
     stages {
         stage('PULL STAGE') {
             steps {
+		git 'https://github.com/Yusuf-tech196/pipeline786.git'
                 echo "PULL SUCCESS"
             }
         }
