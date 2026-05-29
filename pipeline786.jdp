@@ -1,22 +1,36 @@
 pipeline {
     agent any
+
+    environment {
+        JAVA_HOME = "/usr/lib/jvm/java-17-openjdk-amd64"
+        PATH = "${JAVA_HOME}/bin:${env.PATH}"
+    }
+
     stages {
+
         stage('PULL STAGE') {
             steps {
-		git 'https://github.com/Yusuf-tech196/pipeline786.git'
+                git 'https://github.com/Vishwajeet-Pawar-Commits/jenkins.git'
                 echo "PULL SUCCESS"
             }
         }
+
         stage('BUILD STAGE') {
             steps {
+                dir('backend') {
+                    sh 'java -version'
+                    sh 'mvn clean package -DskipTests'
+                }
                 echo "BUILD SUCCESS"
             }
         }
+
         stage('TEST STAGE') {
             steps {
                 echo "TEST SUCCESS"
             }
         }
+
         stage('DEPLOY STAGE') {
             steps {
                 echo "DEPLOY SUCCESS"
