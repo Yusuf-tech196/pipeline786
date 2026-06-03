@@ -29,10 +29,10 @@ pipeline {
             steps {
 		dir('backend') {
 		    sh '''mvn sonar:sonar \\
-  -Dsonar.projectKey=my-app786 \\
-  -Dsonar.projectName=\'my-app786\' \\
-  -Dsonar.host.url=http://13.62.177.137:9000 \\
-  -Dsonar.token=sqp_4afe0f1e4b0b7cab3adbf75bd2f34e74b31fa609'''
+		    -Dsonar.projectKey=my-app786 \\
+			-Dsonar.projectName=\'my-app786\' \\
+ 			-Dsonar.host.url=http://13.62.177.137:9000 \\
+  		    	-Dsonar.token=sqp_4afe0f1e4b0b7cab3adbf75bd2f34e74b31fa609'''
 		}
                 echo "TEST SUCCESS"
             }
