@@ -27,7 +27,6 @@ pipeline {
 
         stage('TEST STAGE') {
             steps {
-                // Replace 'MySonarQube' with your actual SonarQube installation name
                 withSonarQubeEnv(credentialsId: 'SonarQube', installationName: 'MySonarQube') {
                     dir('backend') {
                         sh '''mvn sonar:sonar \\
