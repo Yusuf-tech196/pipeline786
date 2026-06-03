@@ -36,7 +36,7 @@ pipeline {
                         '''
                     }
                 }
-                echo "great TEST SUCCESS"
+                echo "Great TEST SUCCESS"
             }
         }
 
