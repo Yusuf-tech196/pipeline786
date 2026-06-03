@@ -28,7 +28,7 @@ pipeline {
         stage('TEST STAGE') {
             steps {
                 // Ensure that the SonarQube installation in Jenkins is named "MySonarQube"
-                withSonarQubeEnv('wqSonarQube') {
+                withSonarQubeEnv('SonarQube') {
                     dir('backend') {
                         sh '''mvn sonar:sonar \
                         -Dsonar.projectKey=my-app786 \
