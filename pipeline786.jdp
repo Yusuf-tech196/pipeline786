@@ -40,26 +40,31 @@ pipeline {
             }
         }
 
-
         stage('QUALITY-GATE') {
             steps {
-	        timeout(time: 5, unit: 'MINUTES') {
-		waitForQualityGate abortPipeline: true, credentialsId: 'SonarQube'
-                echo 'QUALITY-PASSED'
+                timeout(time: 5, unit: 'MINUTES') {
+                    script {
+                        def qg = waitForQualityGate(credentialsId: 'SonarQube')
+                        if (qg.status != 'PASS') {
+                            error("Pipeline aborted due to quality gate failure: ${qg.status}")
+                        } else {
+                            echo 'QUALITY-PASSED'
+                        }
+                    }
                 }
-	    }
+            }
         }
 
-        stage('CONTINUOUS DELIEVERY') {
+        stage('CONTINUOUS DELIVERY') {
             steps {
                 sh 'aws s3 cp /var/lib/jenkins/workspace/first-pipeline/backend/target/student-registration-backend-0.0.1-SNAPSHOT.jar s3://for-jenkins-project-backup-bux/student-app-786'
             }
         }
 
-         stage('DEPLOY STAGE') {
+        stage('DEPLOY STAGE') {
             steps {
                 echo 'DEPLOY SUCCESS'
             }
         }
     }
- }
+}
