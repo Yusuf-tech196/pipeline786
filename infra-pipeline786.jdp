@@ -1,37 +1,41 @@
 pipeline { 
    agent any 
    stages { 
-       stage ('PULL STAGE') {
-	   steps { 
-	   git 'https://github.com/Yusuf-tech196/pipeline786.git'
+       stage('PULL STAGE') {
+           steps { 
+               git 'https://github.com/Yusuf-tech196/pipeline786.git'
            }
        } 
        
        stage('PLAN') {
-            steps {
-                sh '''
-                terraform init -reconfigure
-                terraform plan
-                '''
-            }
-        }
+           steps {
+               // Initialize Terraform
+               sh '''
+               terraform init -reconfigure
+               '''
+               // Run Terraform plan
+               sh '''
+               terraform plan
+               '''
+           }
+       }
 
-        stage('APPROVAL') {
-            steps {
-                timeout(time: 30, unit: 'MINUTES') {
-                    input message: 'Approval is required. Shall we proceed?, OK : "Approve"'
-                }
-            }
-        }
+       stage('APPROVAL') {
+           steps {
+               timeout(time: 30, unit: 'MINUTES') {
+                   input message: 'Approval is required. Shall we proceed?, OK : "Approve"'
+               }
+           }
+       }
 
-        stage('APPLY') {
-            steps {
-                sh '''
-                terraform apply --auto-approve
-                '''
-            }
-        }
-    }
+       stage('APPLY') {
+           steps {
+               sh '''
+               terraform apply --auto-approve
+               '''
+           }
+       }
+   }
 }
 
 	 
